@@ -264,7 +264,7 @@ def page_review():
         from immo2.rag.mietspiegel_stubs import get_mietspiegel_estimate
         from immo2.cashflow.scoring import score_deal
 
-        rent_est = get_mietspiegel_estimate(listing.stadt, listing.baujahr, listing.wohnflaeche_m2, listing.stadtteil)
+        rent_est = get_mietspiegel_estimate(listing.stadt, listing.baujahr, listing.wohnflaeche_m2, listing.stadtteil, bundesland=listing.bundesland)
         report.rent_estimate = rent_est
         rent_for_cf = listing.ist_miete_kalt or rent_est.miete_kalt_mid or None
 

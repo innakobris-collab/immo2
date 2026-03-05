@@ -49,6 +49,7 @@ async def run_analysis(
         baujahr=listing.baujahr,
         wohnflaeche_m2=listing.wohnflaeche_m2,
         stadtteil=listing.stadtteil,
+        bundesland=listing.bundesland,
     )
     report.rent_estimate = rent_estimate
 
