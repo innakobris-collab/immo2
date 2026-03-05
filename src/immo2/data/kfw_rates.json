@@ -1,0 +1,41 @@
+{
+  "_comment": "KfW BEG (Bundesförderung für effiziente Gebäude) program overview. Source: kfw.de. Hardcoded — update quarterly.",
+  "_last_updated": "2025-12",
+  "_note": "No KfW API exists. These values are manually maintained. Check kfw.de/BEG for current rates.",
+  "beg_wg": {
+    "name": "BEG Wohngebäude (Neubau)",
+    "program_number": "261",
+    "description": "New construction loan. Subsidized interest rate for energy-efficient new builds.",
+    "current_effective_rate_pct": 2.93,
+    "rate_range_pct": [2.27, 2.93],
+    "max_loan_per_unit_eur": 150000,
+    "note": "Rate as of Dec 2025. Applies to KfW-Effizienzhaus 40/55/70."
+  },
+  "beg_em_heizung": {
+    "name": "BEG Einzelmaßnahmen — Heizungsanlage",
+    "program_number": "458",
+    "description": "Grant (Zuschuss) for replacing fossil fuel heating with renewable energy heating.",
+    "base_grant_pct": 30,
+    "climate_speed_bonus_pct": 20,
+    "income_bonus_pct": 20,
+    "max_grant_pct": 70,
+    "max_eligible_costs_eur": 30000,
+    "income_threshold_eur": 40000,
+    "climate_speed_bonus_deadline": "2028-12-31",
+    "note": "Base 30% + Climate Speed Bonus 20% (replace before 2028) + Income Bonus 20% (household income <€40K). Cannot combine with investment property income generally — verify eligibility."
+  },
+  "beg_em_other": {
+    "name": "BEG Einzelmaßnahmen — Sonstige (Dämmung, Fenster, etc.)",
+    "program_number": "458",
+    "base_grant_pct": 15,
+    "max_grant_pct": 20,
+    "note": "15% base for insulation, windows, etc. +5% bonus for iSFP (individueller Sanierungsfahrplan)."
+  },
+  "typical_heating_replacement_cost_eur": {
+    "heat_pump_air_source": [12000, 20000],
+    "heat_pump_ground_source": [18000, 35000],
+    "district_heating_connection": [5000, 15000],
+    "pellet_boiler": [15000, 25000],
+    "note": "Rough ranges for German residential units 60-100m². Prices vary significantly. Verify with quotes."
+  }
+}

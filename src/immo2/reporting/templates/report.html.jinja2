@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>immo2 Deal Analysis — {{ listing.address or listing.plz }}</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Inter, sans-serif; font-size: 11px; color: #0A0A0A; background: #fff; }
+    @page { size: A4; margin: 20mm 16mm; }
+
+    .header { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 8px; border-bottom: 2px solid #0A0A0A; margin-bottom: 16px; }
+    .header h1 { font-size: 20px; font-weight: 700; }
+    .header .meta { font-size: 9px; color: #6B6B6B; text-align: right; }
+
+    .score-block { display: flex; gap: 24px; align-items: center; margin-bottom: 20px; }
+    .score-number { font-size: 48px; font-weight: 700; line-height: 1; }
+    .score-green  { color: #2E7D32; }
+    .score-yellow { color: #E65100; }
+    .score-red    { color: #C62828; }
+    .score-verdict { font-size: 14px; font-weight: 600; }
+    .score-procon { font-size: 10px; margin-top: 4px; color: #444; }
+
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+    .metric-box { border: 1px solid #E0E0E0; padding: 10px; border-radius: 3px; }
+    .metric-label { font-size: 9px; color: #6B6B6B; text-transform: uppercase; letter-spacing: 0.5px; }
+    .metric-value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+
+    h2 { font-size: 13px; font-weight: 700; border-bottom: 1px solid #E0E0E0; padding-bottom: 4px; margin: 20px 0 10px; }
+    h3 { font-size: 11px; font-weight: 600; margin: 12px 0 6px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 10px; }
+    th { background: #F5F5F5; font-weight: 600; text-align: left; padding: 5px 8px; border-bottom: 1px solid #E0E0E0; }
+    td { padding: 4px 8px; border-bottom: 1px solid #F0F0F0; }
+    tr:last-child td { border-bottom: none; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .neg { color: #C62828; }
+    .pos { color: #2E7D32; }
+
+    .flag { padding: 8px 12px; margin: 6px 0; border-radius: 2px; }
+    .flag-critical { background: #FFEBEE; border-left: 3px solid #C62828; }
+    .flag-warning  { background: #FFF3E0; border-left: 3px solid #E65100; }
+    .flag-info     { background: #E3F2FD; border-left: 3px solid #1565C0; }
+    .flag-title { font-weight: 700; }
+    .flag-desc  { font-size: 9px; color: #444; margin-top: 2px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .facts-table td:first-child { font-weight: 500; width: 45%; color: #555; }
+
+    .disclaimer { font-size: 8px; color: #888; margin-top: 20px; border-top: 1px solid #E0E0E0; padding-top: 8px; }
+    .sources { font-size: 8px; color: #888; margin-top: 6px; }
+    .sources ul { padding-left: 12px; }
+
+    .assumption-table td:first-child { color: #555; font-weight: 500; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div style="font-size:11px; color:#6B6B6B; font-weight:600; letter-spacing:1px;">IMMO2</div>
+    <h1>{{ listing.address or (listing.plz ~ ' ' ~ listing.stadt) }}</h1>
+  </div>
+  <div class="meta">
+    Deal Analysis Report<br>
+    Generated: {{ report.created_at.strftime('%d.%m.%Y') }}<br>
+    Job ID: {{ report.job_id }}
+  </div>
+</div>
+
+<!-- DEAL SCORE -->
+{% if score %}
+<div class="score-block">
+  <div class="score-number {% if score.score >= 65 %}score-green{% elif score.score >= 45 %}score-yellow{% else %}score-red{% endif %}">
+    {{ score.score }}
+  </div>
+  <div>
+    <div class="score-verdict">{{ score.headline }}</div>
+    {% if score.pros %}
+    <div class="score-procon" style="margin-top:6px;">
+      <strong>+</strong> {{ score.pros | join(' &nbsp;·&nbsp; ') }}
+    </div>
+    {% endif %}
+    {% if score.cons %}
+    <div class="score-procon">
+      <strong>–</strong> {{ score.cons | join(' &nbsp;·&nbsp; ') }}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<!-- KEY METRICS -->
+{% if cashflow %}
+<div class="metrics-grid">
+  <div class="metric-box">
+    <div class="metric-label">Brutto-Mietrendite</div>
+    <div class="metric-value">{{ cashflow.bruttomietrendite_pct | pct }}</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-label">DSCR</div>
+    <div class="metric-value">{{ "%.2f" | format(cashflow.dscr) }}</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-label">Cashflow nSt</div>
+    <div class="metric-value {% if cashflow.cashflow_nach_steuer_monthly >= 0 %}pos{% else %}neg{% endif %}">
+      {{ cashflow.cashflow_nach_steuer_monthly | sign_eur }}/Mo
+    </div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-label">IRR 10yr (steuerfrei)</div>
+    <div class="metric-value">
+      {% if cashflow.exit_yr11_free %}{{ cashflow.exit_yr11_free.irr_pct | pct }}{% else %}–{% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- RED FLAGS -->
+{% if flags %}
+<h2>Risk Flags</h2>
+{% for flag in flags %}
+<div class="flag flag-{{ flag.severity }}">
+  <div class="flag-title">
+    {% if flag.severity == 'critical' %}🔴{% elif flag.severity == 'warning' %}🟡{% else %}ℹ️{% endif %}
+    {{ flag.title }}
+  </div>
+  <div class="flag-desc">{{ flag.description }}</div>
+  {% if flag.mitigation %}<div class="flag-desc" style="margin-top:3px;"><em>Mitigation: {{ flag.mitigation }}</em></div>{% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+<!-- FINANCIAL MODEL -->
+{% if cashflow %}
+<h2>Financial Model</h2>
+<div class="two-col">
+  <div>
+    <h3>Acquisition Costs</h3>
+    <table class="facts-table">
+      <tr><td>Kaufpreis</td><td class="num">{{ cashflow.acquisition.kaufpreis | eur }}</td></tr>
+      <tr><td>Grunderwerbsteuer ({{ "%.1f" | format(cashflow.acquisition.grunderwerbsteuer_pct * 100) }}%)</td><td class="num">{{ cashflow.acquisition.grunderwerbsteuer | eur }}</td></tr>
+      <tr><td>Notar + Grundbuch</td><td class="num">{{ cashflow.acquisition.notar_grundbuch | eur }}</td></tr>
+      <tr><td>Makler</td><td class="num">{{ cashflow.acquisition.makler | eur }}</td></tr>
+      <tr><td><strong>Kaufnebenkosten gesamt</strong></td><td class="num"><strong>{{ cashflow.acquisition.kaufnebenkosten_total | eur }}</strong></td></tr>
+      <tr><td><strong>Gesamtinvestition</strong></td><td class="num"><strong>{{ cashflow.acquisition.gesamtinvestition | eur }}</strong></td></tr>
+    </table>
+  </div>
+  <div>
+    <h3>Monthly Cashflow (Year 1)</h3>
+    <table class="facts-table">
+      <tr><td>Mieteinnahmen</td><td class="num pos">+{{ cashflow.miete_kalt_estimate | eur }}</td></tr>
+      <tr><td>Zinsen</td><td class="num neg">–{{ cashflow.zinsen_monthly_year1 | eur }}</td></tr>
+      <tr><td>Tilgung</td><td class="num">–{{ cashflow.tilgung_monthly_year1 | eur }}</td></tr>
+      <tr><td>Hausgeld (abzugsfähig)</td><td class="num neg">–{{ cashflow.hausgeld_deductible | eur }}</td></tr>
+      <tr><td>Hausgeld (Rücklage)</td><td class="num neg">–{{ cashflow.hausgeld_ruecklage | eur }}</td></tr>
+      <tr><td><strong>Cashflow vor Steuer</strong></td>
+          <td class="num {% if cashflow.cashflow_vor_steuer_monthly >= 0 %}pos{% else %}neg{% endif %}">
+          <strong>{{ cashflow.cashflow_vor_steuer_monthly | sign_eur }}</strong></td></tr>
+      <tr><td><strong>Cashflow nach Steuer</strong></td>
+          <td class="num {% if cashflow.cashflow_nach_steuer_monthly >= 0 %}pos{% else %}neg{% endif %}">
+          <strong>{{ cashflow.cashflow_nach_steuer_monthly | sign_eur }}</strong></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 10-year table -->
+{% if cashflow.rows %}
+<h3>10-Year Cashflow Projection</h3>
+<table>
+  <tr>
+    <th>Jahr</th><th class="num">Miete</th><th class="num">Zinsen</th>
+    <th class="num">AfA</th><th class="num">Steuereffekt</th>
+    <th class="num">CF nSt</th><th class="num">Restschuld</th>
+  </tr>
+  {% for row in cashflow.rows %}
+  <tr>
+    <td>{{ row.year }}</td>
+    <td class="num">{{ row.miete_kalt | eur }}</td>
+    <td class="num neg">–{{ row.zinsen | eur }}</td>
+    <td class="num">{{ row.afa | eur }}</td>
+    <td class="num {% if row.steuererstattung_estimate > 0 %}pos{% endif %}">
+      {% if row.steuererstattung_estimate > 0 %}+{% endif %}{{ row.steuererstattung_estimate | eur }}
+    </td>
+    <td class="num {% if row.cashflow_nach_steuer >= 0 %}pos{% else %}neg{% endif %}">
+      {{ row.cashflow_nach_steuer | sign_eur }}
+    </td>
+    <td class="num">{{ row.restschuld | eur }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<!-- Exit Scenarios -->
+<h3>Exit Scenarios</h3>
+<div class="two-col">
+  {% if cashflow.exit_yr10_taxed %}
+  <div>
+    <strong>Exit Jahr 10</strong> (Spekulationssteuer fällig)
+    <table class="facts-table" style="margin-top:4px;">
+      <tr><td>Verkaufspreis</td><td class="num">{{ cashflow.exit_yr10_taxed.sale_price_assumed | eur }}</td></tr>
+      <tr><td>Spekulationssteuer</td><td class="num neg">–{{ cashflow.exit_yr10_taxed.spekulationssteuer | eur }}</td></tr>
+      <tr><td><strong>IRR</strong></td><td class="num"><strong>{{ cashflow.exit_yr10_taxed.irr_pct | pct }}</strong></td></tr>
+    </table>
+  </div>
+  {% endif %}
+  {% if cashflow.exit_yr11_free %}
+  <div>
+    <strong>Exit Jahr 11+ (steuerfrei)</strong>
+    <table class="facts-table" style="margin-top:4px;">
+      <tr><td>Verkaufspreis</td><td class="num">{{ cashflow.exit_yr11_free.sale_price_assumed | eur }}</td></tr>
+      <tr><td>Spekulationssteuer</td><td class="num pos">€0 (steuerfrei)</td></tr>
+      <tr><td><strong>IRR</strong></td><td class="num"><strong>{{ cashflow.exit_yr11_free.irr_pct | pct }}</strong></td></tr>
+    </table>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Assumptions -->
+<h3>Model Assumptions</h3>
+<table class="assumption-table">
+  {% for k, v in cashflow.assumptions.items() %}
+  <tr><td>{{ k }}</td><td>{{ v }}</td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<!-- PROPERTY FACTS -->
+<h2>Property Data</h2>
+<div class="two-col">
+  <div>
+    <table class="facts-table">
+      <tr><td>Adresse</td><td>{{ listing.address or '–' }}</td></tr>
+      <tr><td>PLZ / Stadt</td><td>{{ listing.plz }} {{ listing.stadt }}</td></tr>
+      <tr><td>Bundesland</td><td>{{ listing.bundesland or '–' }}</td></tr>
+      <tr><td>Wohnfläche</td><td>{{ listing.wohnflaeche_m2 }} m²</td></tr>
+      <tr><td>Zimmer</td><td>{{ listing.zimmer or '–' }}</td></tr>
+      <tr><td>Baujahr</td><td>{{ listing.baujahr or '–' }}</td></tr>
+      <tr><td>Etage</td><td>{{ listing.etage or '–' }}</td></tr>
+    </table>
+  </div>
+  <div>
+    <table class="facts-table">
+      <tr><td>Energieklasse</td><td>{{ listing.energieklasse or '–' }}</td></tr>
+      <tr><td>Endenergiebedarf</td><td>{{ (listing.endenergiebedarf_kwh | string + ' kWh/m²/Jahr') if listing.endenergiebedarf_kwh else '–' }}</td></tr>
+      <tr><td>Heizungsart</td><td>{{ listing.heizungsart or '–' }}</td></tr>
+      <tr><td>Heizung Baujahr</td><td>{{ listing.heizung_baujahr or '–' }}</td></tr>
+      <tr><td>Zustand</td><td>{{ listing.zustand or '–' }}</td></tr>
+      {% if rent and rent.city_in_corpus %}
+      <tr><td>Mietspiegel-Miete</td><td>€{{ rent.per_m2_low }}–€{{ rent.per_m2_high }}/m² | €{{ rent.miete_kalt_low|int }}–€{{ rent.miete_kalt_high|int }}/Mo</td></tr>
+      {% endif %}
+    </table>
+  </div>
+</div>
+
+<!-- INVESTOR CHECKLIST -->
+<h2>Investor Due Diligence Checklist</h2>
+<table>
+  <tr><th>Item</th><th style="width:80px;">Status</th></tr>
+  <tr><td>Kaufpreis gegen Marktvergleiche plausibilisiert</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Wohnfläche im Grundriss verifiziert (Abweichungen 5–15% möglich)</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Energieausweis angefordert und geprüft</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Hausgeld gegen WEG-Jahresabrechnung verifiziert</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Instandhaltungsrücklage-Kontostand geprüft (mind. €0.70/m²/Monat)</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Letzte 3 WEG-Versammlungs-Protokolle gelesen</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Mietpreisbremse-Anwendbarkeit für diese PLZ bestätigt</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Aktuelle Mieteinnahmen durch Mietvertrag bestätigt</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Mietrückstände (Mietschulden) geprüft</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Baugutachter für Baujahr &lt;1990 oder Zustandsmängel beauftragt</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Flood/Lärm-Karte für genaue Adresse geprüft (nicht Durchschnitt)</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Teilungserklärung gelesen (Sondernutzungsrechte, Mehrheitseigentümer)</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>Mietvergleiche aus mind. 2 unabhängigen Quellen bestätigt</td><td>☐ Zu prüfen</td></tr>
+  <tr><td>KfW-Förderprogramme für Sanierungsszenario geprüft</td><td>☐ Zu prüfen</td></tr>
+</table>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  <strong>⚠️ Disclaimer</strong><br>
+  This analysis is a decision support tool only. All outputs require independent verification before investment decisions.
+  This is not financial or legal advice. Immo2 assumes no liability for decisions made on the basis of this report.
+  Rent estimates are based on published Mietspiegel tables and may not reflect local market conditions.
+  Cashflow projections are based on assumptions stated above and may differ significantly from actual results.
+  Always consult a qualified tax advisor and property inspector before purchase.<br><br>
+  <strong>Data sources:</strong>
+  OpenStreetMap contributors (ODbL) ·
+  Statistisches Bundesamt Zensus 2022 (dl-de/by-2-0) ·
+  Deutsche Bundesbank ·
+  {% if rent and rent.source %}{{ rent.source.name }} ({{ rent.source.date }}) · {% endif %}
+  Grunderwerbsteuer: Finanzministerien der Länder 2025 ·
+  AfA: §7 EStG, §7b EStG ·
+  GEG 2024<br>
+  Report generated by immo2 v{{ report.version }} on {{ report.created_at.strftime('%Y-%m-%d %H:%M') }} UTC
+</div>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+[
+  {
+    "id": "berlin_etw_altbau_001",
+    "description": "Berlin Prenzlauer Berg Altbau ETW - typical IS24 listing",
+    "raw_text": "Gemütliche Altbauwohnung in Prenzlauer Berg\n\nWohnfläche: 72 m²\nZimmer: 3\nBaujahr: 1920\nEtage: 2. OG von 5\nKaufpreis: 360.000 €\nHausgeld: 280 €/Monat\nEnergieausweis: Energieklasse E, 145 kWh/m²a, Fernwärme\nZustand: gepflegt\nKelleranteil: ja\nBalkon: ja\nAufzug: nein\n\nAdresse: Kastanienallee 77, 10435 Berlin, Stadtteil: Prenzlauer Berg\n\nWEG-Einheiten: 12\nGrundsteuer: ca. 480 €/Jahr",
+    "expected": {
+      "address": "Kastanienallee 77, 10435 Berlin",
+      "plz": "10435",
+      "stadt": "Berlin",
+      "stadtteil": "Prenzlauer Berg",
+      "bundesland": "Berlin",
+      "wohnflaeche_m2": 72.0,
+      "zimmer": 3.0,
+      "baujahr": 1920,
+      "etage": 2,
+      "kaufpreis": 360000.0,
+      "hausgeld_total": 280.0,
+      "energieklasse": "E",
+      "endenergiebedarf_kwh": 145.0,
+      "heizungsart": "Fernwärme",
+      "aufzug": false,
+      "balkon": true,
+      "keller": true,
+      "weg_anzahl_einheiten": 12,
+      "grundsteuer_annual": 480.0
+    }
+  },
+  {
+    "id": "munich_neubau_001",
+    "description": "Munich Schwabing Neubau ETW - post-2022 construction",
+    "raw_text": "Neubau-Eigentumswohnung in München-Schwabing\n\nFläche: 58 m²\nZimmer: 2\nBaujahr: 2024\n4. Obergeschoss (von 6)\nAufzug: ja\nBalkon: ja\nTiefgaragenstellplatz inklusive\n\nKaufpreis: 695.000 Euro\nMonatliches Hausgeld: 320 €\nEnergieeffizienzklasse A, 28 kWh/m²/Jahr\nWärmepumpe\n\nLage: Schwabing-West\nAdresse: Leopoldstraße 142, 80802 München\n\nErstbezug nach Fertigstellung Q3 2024",
+    "expected": {
+      "plz": "80802",
+      "stadt": "München",
+      "stadtteil": "Schwabing",
+      "bundesland": "Bayern",
+      "wohnflaeche_m2": 58.0,
+      "zimmer": 2.0,
+      "baujahr": 2024,
+      "etage": 4,
+      "kaufpreis": 695000.0,
+      "hausgeld_total": 320.0,
+      "energieklasse": "A",
+      "endenergiebedarf_kwh": 28.0,
+      "heizungsart": "Wärmepumpe",
+      "aufzug": true,
+      "balkon": true,
+      "stellplatz": true
+    }
+  },
+  {
+    "id": "hamburg_etw_vermietet_001",
+    "description": "Hamburg Eimsbüttel currently rented ETW",
+    "raw_text": "Kapitalanlage: Vermietete Eigentumswohnung in Hamburg-Eimsbüttel\n\nWohnfläche laut Teilungserklärung: 65 qm\nRaumaufteilung: 2,5 Zimmer\nBaujahr des Hauses: 1957\nGeschosse: 4. von 5\n\nAktuell vermietet zu 850 € Kaltmiete / Monat\nHausgeld gesamt: 245 € mtl.\nInstandhaltungsrücklage: 60 € mtl.\n\nEnergieklasse: D\nKohlenstoffdioxidemissionen: 35 kg/(m²·a)\nHeizung: Zentralheizung Gas\n\nKaufpreis: 285.000 €\nNotar- und Grundbuchkosten werden nicht erstattet\n\nAdresse: Sillemstraße 23, 20257 Hamburg",
+    "expected": {
+      "plz": "20257",
+      "stadt": "Hamburg",
+      "bundesland": "Hamburg",
+      "wohnflaeche_m2": 65.0,
+      "zimmer": 2.5,
+      "baujahr": 1957,
+      "etage": 4,
+      "kaufpreis": 285000.0,
+      "hausgeld_total": 245.0,
+      "hausgeld_ruecklage": 60.0,
+      "ist_miete_kalt": 850.0,
+      "energieklasse": "D",
+      "heizungsart": "Gas"
+    }
+  },
+  {
+    "id": "berlin_h_klasse_001",
+    "description": "Berlin energy class H - high renovation risk",
+    "raw_text": "Günstige Eigentumswohnung als Sanierungsobjekt\n\nWohnfläche: 54 qm\n2 Zimmer\nBaujahr: 1963\nParterre (EG)\n\nKaufpreis: 149.000 €\nHausgeld: 180 €\nEnergieausweis Klasse H, Endenergiebedarf 280 kWh/m²a\nHeizung: Ölheizung, Baujahr 1991\n\nZustand: renovierungsbedürftig\n\nFriedrichshain-Kreuzberg, Berlin\nAdresse: Warschauer Straße 88, 10245 Berlin",
+    "expected": {
+      "plz": "10245",
+      "stadt": "Berlin",
+      "bundesland": "Berlin",
+      "wohnflaeche_m2": 54.0,
+      "zimmer": 2.0,
+      "baujahr": 1963,
+      "etage": 0,
+      "kaufpreis": 149000.0,
+      "hausgeld_total": 180.0,
+      "energieklasse": "H",
+      "endenergiebedarf_kwh": 280.0,
+      "heizungsart": "Öl",
+      "heizung_baujahr": 1991,
+      "zustand": "renovierungsbedürftig"
+    }
+  },
+  {
+    "id": "cologne_etw_mittelstand_001",
+    "description": "Cologne Ehrenfeld ETW - medium quality",
+    "raw_text": "3-Zimmer-Eigentumswohnung in Köln-Ehrenfeld\n\nGröße: 78 m² Wohnfläche\nZimmer: 3\nEtage: 1. OG\nBaujahr: 1985\nAufzug vorhanden\nKeller: ja\n\nPreis: 320.000 €\nHausgeld: 310 €/Monat\nGrundsteuer jährlich: 520 €\nEnergieeffizienz: C\nFernwärme\n\nKöln 50825\nEhrenfeld\nFrankfurter Straße 100",
+    "expected": {
+      "plz": "50825",
+      "stadt": "Köln",
+      "stadtteil": "Ehrenfeld",
+      "bundesland": "Nordrhein-Westfalen",
+      "wohnflaeche_m2": 78.0,
+      "zimmer": 3.0,
+      "baujahr": 1985,
+      "etage": 1,
+      "kaufpreis": 320000.0,
+      "hausgeld_total": 310.0,
+      "grundsteuer_annual": 520.0,
+      "energieklasse": "C",
+      "heizungsart": "Fernwärme",
+      "aufzug": true,
+      "keller": true
+    }
+  },
+  {
+    "id": "frankfurt_mfh_rendite_001",
+    "description": "Frankfurt small MFH as investment",
+    "raw_text": "Renditeimmobilie: Mehrfamilienhaus Frankfurt-Sachsenhausen\n\nWohnfläche gesamt: 380 m² (5 Wohneinheiten)\nGrundfläche: 210 m²\nBaujahr: 1956\nVoll vermietet: Jahresmiete 48.000 €\n\nKaufpreis: 1.200.000 €\nGrundsteuer: 3.200 € p.a.\n\nEnergieausweis: Klasse F\nEndenergiebedarf: 210 kWh/(m²a)\nHeizung: Gaszentralheizung, Baujahr 2003\n\nLage: Sachsenhausen-Nord, Frankfurt am Main\nPLZ: 60594",
+    "expected": {
+      "plz": "60594",
+      "stadt": "Frankfurt am Main",
+      "bundesland": "Hessen",
+      "wohnflaeche_m2": 380.0,
+      "baujahr": 1956,
+      "kaufpreis": 1200000.0,
+      "grundsteuer_annual": 3200.0,
+      "energieklasse": "F",
+      "endenergiebedarf_kwh": 210.0,
+      "heizungsart": "Gas",
+      "heizung_baujahr": 2003
+    }
+  },
+  {
+    "id": "dresden_etw_vor1919_001",
+    "description": "Dresden Altstadt pre-1919 Gründerzeit ETW",
+    "raw_text": "Historische Gründerzeitwohnung in der Dresdner Altstadt\n\nWohnfläche: 88 qm\nZimmerzahl: 3,5\nBaujahr: 1904 (Gründerzeit)\nDachgeschoss, 4. OG ohne Aufzug\n\nKaufpreis: 245.000 EUR\nNicht vermietet (Leerstand)\nHausgeld: 195 € monatlich\nEnergieausweis läuft nach, wird auf Anfrage vorgelegt\nHeizungsart: Fernwärme\n\nDresden Altstadt\nBürgerwiese 14, 01069 Dresden",
+    "expected": {
+      "plz": "01069",
+      "stadt": "Dresden",
+      "bundesland": "Sachsen",
+      "wohnflaeche_m2": 88.0,
+      "zimmer": 3.5,
+      "baujahr": 1904,
+      "kaufpreis": 245000.0,
+      "hausgeld_total": 195.0,
+      "heizungsart": "Fernwärme",
+      "aufzug": false,
+      "ist_miete_kalt": null
+    }
+  },
+  {
+    "id": "hamburg_neubau_kfw_001",
+    "description": "Hamburg Neubau with KfW55 efficiency - Sonder-AfA eligible",
+    "raw_text": "KfW-Effizienzhaus 55: Neubau-Eigentumswohnung Hamburg HafenCity\n\nWohnfläche: 75 m²\nZimmer: 3\nBaujahr: 2023\nBauantrag: März 2023\n3. Etage von 8\nAufzug: ja\nDachterrasse (gemeinschaftlich)\n\nKaufpreis: 850.000 €\nHausgeld: 380 €/Monat\nEnergieeffizienzklasse A+\nEndenergiebedarf: 18 kWh/m²a\nWärmepumpe + Solarthermie\n\nHafenCity Hamburg\nAm Strandkai 12, 20457 Hamburg",
+    "expected": {
+      "plz": "20457",
+      "stadt": "Hamburg",
+      "stadtteil": "HafenCity",
+      "bundesland": "Hamburg",
+      "wohnflaeche_m2": 75.0,
+      "zimmer": 3.0,
+      "baujahr": 2023,
+      "etage": 3,
+      "kaufpreis": 850000.0,
+      "hausgeld_total": 380.0,
+      "energieklasse": "A+",
+      "endenergiebedarf_kwh": 18.0,
+      "aufzug": true
+    }
+  },
+  {
+    "id": "berlin_etw_mietpreisbremse_001",
+    "description": "Berlin ETW with current tenant - Mietpreisbremse relevant",
+    "raw_text": "Kapitalanlage: 2-Zimmer-Wohnung Berlin-Mitte\n\nWohnfläche: 52 qm\n2 Zimmer\nBaujahr: 2001\n2. OG, Aufzug\nBalkon vorhanden\n\nAktuell vermietet: 780 € Kaltmiete (Mietspiegel-konform)\nMietvertrag: unbefristet seit 2018\nHausgeld: 220 €/Monat\nInstandhaltungsrücklage (Anteil): 35 €\n\nEnergieausweis: Klasse B\nFernwärme GASAG\n\nKaufpreis: 310.000 €\nProvisionsfrei (keine Maklerprovision)\n\nKarlstraße 18, 10115 Berlin-Mitte",
+    "expected": {
+      "plz": "10115",
+      "stadt": "Berlin",
+      "stadtteil": "Mitte",
+      "bundesland": "Berlin",
+      "wohnflaeche_m2": 52.0,
+      "zimmer": 2.0,
+      "baujahr": 2001,
+      "etage": 2,
+      "kaufpreis": 310000.0,
+      "hausgeld_total": 220.0,
+      "hausgeld_ruecklage": 35.0,
+      "ist_miete_kalt": 780.0,
+      "energieklasse": "B",
+      "heizungsart": "Fernwärme",
+      "aufzug": true,
+      "balkon": true
+    }
+  },
+  {
+    "id": "nrw_etw_duesseldorf_001",
+    "description": "Düsseldorf Oberkassel ETW - high Grunderwerbsteuer (NRW 6.5%)",
+    "raw_text": "Exklusive Eigentumswohnung Düsseldorf-Oberkassel\n\nWohnfläche: 95 m²\nZimmer: 4\nBaujahr: 1972\nEtage: 3\nAufzug: vorhanden\nKellerabteil: ja\n\nKaufpreis: 520.000 Euro\nHausgeld: 450 €/Monat\nGrundsteuer: 680 €/Jahr\nEnergieausweis: Klasse E\nGas-Zentralheizung, Baujahr 1998\n\nLage: Oberkassel, beste Wohnlage\nAdresse: Luegallee 62, 40545 Düsseldorf",
+    "expected": {
+      "plz": "40545",
+      "stadt": "Düsseldorf",
+      "stadtteil": "Oberkassel",
+      "bundesland": "Nordrhein-Westfalen",
+      "wohnflaeche_m2": 95.0,
+      "zimmer": 4.0,
+      "baujahr": 1972,
+      "etage": 3,
+      "kaufpreis": 520000.0,
+      "hausgeld_total": 450.0,
+      "grundsteuer_annual": 680.0,
+      "energieklasse": "E",
+      "heizungsart": "Gas",
+      "heizung_baujahr": 1998,
+      "aufzug": true,
+      "keller": true
+    }
+  }
+]

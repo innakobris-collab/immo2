@@ -1,0 +1,29 @@
+version: "3.9"
+
+# MVP uses SQLite — this Docker config is for V1 (PostgreSQL + pgvector)
+# Run: docker-compose up -d
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: immo2_db
+    environment:
+      POSTGRES_USER: immo2
+      POSTGRES_PASSWORD: immo2password
+      POSTGRES_DB: immo2
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U immo2"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+
+# Notes:
+# - pgvector/pgvector:pg16 includes both PostGIS and pgvector extensions
+# - Run ONCE after first start: CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS postgis;
+# - For MVP: ignore this file, use SQLite (DATABASE_URL=sqlite+aiosqlite:///./immo2.db)

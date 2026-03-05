@@ -1,0 +1,54 @@
+{
+  "_comment": "Hamburg Mietspiegel 2023. Ortsübliche Vergleichsmiete (Kaltmiete €/m²/month).",
+  "_source": "Freie und Hansestadt Hamburg, Behörde für Stadtentwicklung und Wohnen",
+  "_url": "https://www.hamburg.de/mietspiegel/",
+  "_year": 2023,
+  "_valid_from": "2023-06-01",
+  "mietpreisbremse": {
+    "applies": true,
+    "cap_multiplier": 1.10,
+    "neubau_exempt_from": 2014
+  },
+  "table": {
+    "vor_1919": {
+      "einfach": {"low": 9.50, "mid": 12.00, "high": 14.50},
+      "mittel": {"low": 11.50, "mid": 14.50, "high": 17.50},
+      "gut": {"low": 14.00, "mid": 17.50, "high": 21.00}
+    },
+    "1919_1948": {
+      "einfach": {"low": 9.00, "mid": 11.50, "high": 14.00},
+      "mittel": {"low": 11.00, "mid": 14.00, "high": 17.00},
+      "gut": {"low": 13.50, "mid": 17.00, "high": 20.50}
+    },
+    "1949_1960": {
+      "einfach": {"low": 8.50, "mid": 10.50, "high": 12.50},
+      "mittel": {"low": 10.00, "mid": 12.50, "high": 15.00},
+      "gut": {"low": 12.50, "mid": 15.50, "high": 18.50}
+    },
+    "1961_1977": {
+      "einfach": {"low": 8.50, "mid": 10.50, "high": 12.50},
+      "mittel": {"low": 9.50, "mid": 12.00, "high": 14.50},
+      "gut": {"low": 12.00, "mid": 15.00, "high": 18.00}
+    },
+    "1978_1990": {
+      "einfach": {"low": 9.00, "mid": 11.50, "high": 14.00},
+      "mittel": {"low": 10.50, "mid": 13.00, "high": 15.50},
+      "gut": {"low": 13.00, "mid": 16.00, "high": 19.00}
+    },
+    "1991_2002": {
+      "einfach": {"low": 10.00, "mid": 12.50, "high": 15.00},
+      "mittel": {"low": 11.50, "mid": 14.50, "high": 17.50},
+      "gut": {"low": 14.00, "mid": 17.50, "high": 21.00}
+    },
+    "2003_2013": {
+      "einfach": {"low": 12.00, "mid": 15.00, "high": 18.00},
+      "mittel": {"low": 14.00, "mid": 17.50, "high": 21.00},
+      "gut": {"low": 16.50, "mid": 20.50, "high": 24.50}
+    },
+    "ab_2014": {
+      "einfach": {"low": 14.00, "mid": 17.50, "high": 21.00},
+      "mittel": {"low": 16.50, "mid": 20.50, "high": 24.50},
+      "gut": {"low": 19.00, "mid": 23.50, "high": 28.00}
+    }
+  }
+}

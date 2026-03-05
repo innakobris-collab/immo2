@@ -1,0 +1,65 @@
+{
+  "_comment": "German AfA (Abschreibung) rules for rental residential property. Source: §7 EStG, §7b EStG.",
+  "_last_updated": "2025-01",
+  "linear_2pct": {
+    "name": "Lineare AfA 2% (Standard)",
+    "rate_pct": 2.0,
+    "useful_life_years": 50,
+    "applies_when": "Baujahr 1925 or later, completed before 01.01.2023",
+    "baujahr_from": 1925,
+    "baujahr_to": null,
+    "completion_before": "2023-01-01",
+    "note": "Standard rate for most existing residential buildings"
+  },
+  "linear_2_5pct": {
+    "name": "Lineare AfA 2.5% (Altbau vor 1925)",
+    "rate_pct": 2.5,
+    "useful_life_years": 40,
+    "applies_when": "Baujahr before 1925",
+    "baujahr_from": null,
+    "baujahr_to": 1924,
+    "completion_before": null,
+    "note": "For very old buildings (Gründerzeit, Wilhelminisch)"
+  },
+  "linear_3pct": {
+    "name": "Lineare AfA 3% (Neubau ab 2023)",
+    "rate_pct": 3.0,
+    "useful_life_years": 33,
+    "applies_when": "New construction completed on or after 01.01.2023",
+    "baujahr_from": 2023,
+    "baujahr_to": null,
+    "completion_from": "2023-01-01",
+    "note": "Increased rate for new builds post-2022. §7 Abs.4 Satz 1 Nr.2b EStG"
+  },
+  "sonder_afa": {
+    "name": "Sonder-AfA §7b EStG (+5% für 4 Jahre)",
+    "extra_rate_pct": 5.0,
+    "duration_years": 4,
+    "base_afa": "linear_3pct",
+    "combined_rate_pct_years_1_4": 8.0,
+    "applies_when": "Bauantrag between 01.01.2023 and 30.09.2030 (extended); rental residential; cost ≤€5,200/m²",
+    "bauantrag_from": "2023-01-01",
+    "bauantrag_to": "2030-09-30",
+    "cost_limit_per_m2": 5200,
+    "afa_base_limit_per_m2": 4000,
+    "note": "Can be combined with linear 3% AfA. Sonder-AfA extended to Sept 30, 2030 per Wachstumschancengesetz."
+  },
+  "degressiv": {
+    "name": "Degressive AfA §7(5a) EStG (5-6% vom Restwert)",
+    "rate_pct": 5.0,
+    "max_rate_pct": 6.0,
+    "type": "declining_balance",
+    "applies_when": "Construction start OR purchase contract between 01.10.2023 and 30.09.2029; residential rental",
+    "contract_from": "2023-10-01",
+    "contract_to": "2029-09-30",
+    "can_switch_to_linear": true,
+    "note": "5% of residual book value per year. Can switch to linear AfA at any time when it becomes more favorable."
+  },
+  "_15pct_rule": {
+    "name": "Anschaffungsnaher Herstellungsaufwand (15%-Regel)",
+    "threshold_pct_of_gebaeudewert": 15.0,
+    "window_years": 3,
+    "description": "If renovation costs within 3 years after purchase exceed 15% of Gebäudeanteil of Kaufpreis, ALL renovation costs must be capitalized (not immediately deductible). Applies even to costs that would normally be Erhaltungsaufwand.",
+    "source": "§6 Abs.1 Nr.1a EStG"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "_comment": "Munich Mietspiegel 2024. Ortsübliche Vergleichsmiete (Kaltmiete €/m²/month).",
+  "_source": "Landeshauptstadt München, Sozialreferat",
+  "_url": "https://www.muenchen.de/wohnen/mietspiegel",
+  "_year": 2024,
+  "_valid_from": "2024-04-01",
+  "_note": "Simplified table based on published Mietspiegel 2024. Munich has a complex Mietspiegel with many sub-categories. These are representative ranges. Verify exact values for specific properties.",
+  "mietpreisbremse": {
+    "applies": true,
+    "cap_multiplier": 1.10,
+    "neubau_exempt_from": 2014
+  },
+  "table": {
+    "vor_1919": {
+      "einfach": {"low": 12.50, "mid": 15.50, "high": 18.50},
+      "mittel": {"low": 15.00, "mid": 18.50, "high": 22.00},
+      "gut": {"low": 18.00, "mid": 22.00, "high": 26.00}
+    },
+    "1919_1948": {
+      "einfach": {"low": 12.00, "mid": 15.00, "high": 18.00},
+      "mittel": {"low": 14.50, "mid": 18.00, "high": 21.50},
+      "gut": {"low": 17.50, "mid": 21.50, "high": 25.50}
+    },
+    "1949_1965": {
+      "einfach": {"low": 11.50, "mid": 14.50, "high": 17.50},
+      "mittel": {"low": 13.50, "mid": 16.50, "high": 19.50},
+      "gut": {"low": 16.50, "mid": 20.50, "high": 24.50}
+    },
+    "1966_1977": {
+      "einfach": {"low": 11.00, "mid": 14.00, "high": 17.00},
+      "mittel": {"low": 13.00, "mid": 16.00, "high": 19.00},
+      "gut": {"low": 16.00, "mid": 20.00, "high": 24.00}
+    },
+    "1978_1989": {
+      "einfach": {"low": 12.00, "mid": 15.00, "high": 18.00},
+      "mittel": {"low": 14.00, "mid": 17.50, "high": 21.00},
+      "gut": {"low": 17.00, "mid": 21.00, "high": 25.00}
+    },
+    "1990_1999": {
+      "einfach": {"low": 13.00, "mid": 16.50, "high": 20.00},
+      "mittel": {"low": 15.50, "mid": 19.50, "high": 23.50},
+      "gut": {"low": 18.50, "mid": 23.00, "high": 27.50}
+    },
+    "2000_2013": {
+      "einfach": {"low": 15.00, "mid": 18.50, "high": 22.00},
+      "mittel": {"low": 17.50, "mid": 21.50, "high": 25.50},
+      "gut": {"low": 21.00, "mid": 25.50, "high": 30.00}
+    },
+    "ab_2014": {
+      "einfach": {"low": 18.00, "mid": 22.00, "high": 26.00},
+      "mittel": {"low": 21.00, "mid": 25.50, "high": 30.00},
+      "gut": {"low": 24.00, "mid": 29.00, "high": 34.00}
+    }
+  }
+}

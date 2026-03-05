@@ -1,0 +1,67 @@
+{
+  "_comment": "Berlin Mietspiegel 2023. Ortsübliche Vergleichsmiete (Kaltmiete €/m²/month).",
+  "_source": "Senatsverwaltung für Stadtentwicklung, Bauen und Wohnen Berlin",
+  "_url": "https://www.stadtentwicklung.berlin.de/wohnen/mietspiegel/",
+  "_year": 2023,
+  "_valid_from": "2023-05-01",
+  "_note": "Values are midpoints of the Mietspiegel table. Qualifizierter Mietspiegel 2023. Updated every 2 years.",
+  "_wohnlage": ["einfach", "mittel", "gut"],
+  "_baualtersklassen": {
+    "vor_1918": "before 1918",
+    "1918_1949": "1918–1949",
+    "1950_1964": "1950–1964",
+    "1965_1972": "1965–1972",
+    "1973_1990": "1973–1990",
+    "1991_2002": "1991–2002",
+    "2003_2013": "2003–2013",
+    "ab_2014": "2014 and later (Neubau — Mietpreisbremse exempt)"
+  },
+  "mietpreisbremse": {
+    "applies": true,
+    "cap_multiplier": 1.10,
+    "note": "Max new rent = Mietspiegel Vergleichsmiete × 1.10 in most Berlin addresses",
+    "neubau_exempt_from": 2014
+  },
+  "table": {
+    "vor_1918": {
+      "einfach": {"low": 7.80, "mid": 9.80, "high": 11.80},
+      "mittel": {"low": 9.20, "mid": 11.50, "high": 13.80},
+      "gut": {"low": 11.00, "mid": 13.50, "high": 16.00}
+    },
+    "1918_1949": {
+      "einfach": {"low": 7.50, "mid": 9.50, "high": 11.50},
+      "mittel": {"low": 8.80, "mid": 11.00, "high": 13.20},
+      "gut": {"low": 10.50, "mid": 13.00, "high": 15.50}
+    },
+    "1950_1964": {
+      "einfach": {"low": 6.80, "mid": 8.50, "high": 10.20},
+      "mittel": {"low": 7.80, "mid": 9.80, "high": 11.80},
+      "gut": {"low": 9.50, "mid": 11.80, "high": 14.10}
+    },
+    "1965_1972": {
+      "einfach": {"low": 6.50, "mid": 8.00, "high": 9.50},
+      "mittel": {"low": 7.20, "mid": 9.00, "high": 10.80},
+      "gut": {"low": 8.80, "mid": 11.00, "high": 13.20}
+    },
+    "1973_1990": {
+      "einfach": {"low": 6.80, "mid": 8.50, "high": 10.20},
+      "mittel": {"low": 7.80, "mid": 9.80, "high": 11.80},
+      "gut": {"low": 9.20, "mid": 11.50, "high": 13.80}
+    },
+    "1991_2002": {
+      "einfach": {"low": 7.50, "mid": 9.50, "high": 11.50},
+      "mittel": {"low": 8.80, "mid": 11.00, "high": 13.20},
+      "gut": {"low": 10.50, "mid": 13.00, "high": 15.50}
+    },
+    "2003_2013": {
+      "einfach": {"low": 9.00, "mid": 11.50, "high": 14.00},
+      "mittel": {"low": 10.50, "mid": 13.00, "high": 15.50},
+      "gut": {"low": 12.50, "mid": 15.50, "high": 18.50}
+    },
+    "ab_2014": {
+      "einfach": {"low": 11.00, "mid": 14.00, "high": 17.00},
+      "mittel": {"low": 13.00, "mid": 16.50, "high": 20.00},
+      "gut": {"low": 15.00, "mid": 19.00, "high": 23.00}
+    }
+  }
+}
